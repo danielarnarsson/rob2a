@@ -26,7 +26,7 @@
 task main()
 {
 	wait1Msec(2000);
-	motor[leftMotor]=127;
-	motor[rightMotor]=127;
+	motor[leftMotor]=-127;
+	motor[rightMotor]=-127;
 	wait1Msec(2000);
 }
