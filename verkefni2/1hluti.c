@@ -22,11 +22,48 @@
 |*                                                                                                    *|
 \*----------------------------------------------------------------------------------------------------*/
 
+task driveMotors()
+{
+	while(true){
+		motor[rightMotor] = 80;
+		motor[leftMotor]  = 80;
+		wait1Msec(800);
+		motor[rightMotor] = -80;
+		motor[leftMotor]  = -80;
+		wait1Msec(800);
+	}
+}
+
+task clawMotors()
+{
+	while(true){
+		motor[clawMotor] = 20;
+		wait1Msec(200);
+		motor[clawMotor] = -20;
+		wait1Msec(200);
+	}
+}
+
+task armMotors()
+{
+	while(true){
+		motor[armMotor] = -30;
+		wait1Msec(200);
+		motor[armMotor] = 70;
+		wait1Msec(200);
+	}
+}
 
 task main()
 {
-	wait1Msec(2000);
-	motor[leftMotor]=-127;
-	motor[rightMotor]=-127;
-	wait1Msec(2000);
+
+  StartTask(driveMotors);
+  StartTask(clawMotors);
+  StartTask(armMotors);
+
+  while(1!=0)
+  {
+    // Keep the program alive until pushButton is pressed
+  }
+	StopAllTasks();
 }
