@@ -58,7 +58,6 @@ task main()
 {
 
   StartTask(driveMotors);
-  StartTask(clawMotors);
   StartTask(armMotors);
 
   while(1!=0)
@@ -67,3 +66,6 @@ task main()
   }
 	StopAllTasks();
 }
+
+// 4" diameter = 10.16 cm diameter
+// 10.16 * pi = 31.9186 circumference
