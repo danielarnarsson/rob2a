@@ -12,6 +12,13 @@
 #pragma config(Motor,  port6,           clawMotor,     tmotorVex269, openLoop)
 #pragma config(Motor,  port7,           armMotor,      tmotorVex269, openLoop)
 
+void stop(int time){
+	motor[rightMotor] = 0;		  // Motor on port2 is run at full (127) power forward
+	motor[leftMotor]  = 0;		  // Motor on port3 is run at full (127) power forward
+	wait1Msec(time);
+}
+
+
 const float BASEDIST = 300;
 void drive(int dist,bool bf){
 	int backward_forward = (bf) ? (1):(-1);
@@ -19,34 +26,39 @@ void drive(int dist,bool bf){
 		if(SensorValue[rightEncoder] == SensorValue[leftEncoder]) // If rightEncoder has counted the same amount as leftEncoder:
 		{
 			// Move Forward
-			motor[rightMotor] = 80*backward_forward;		    // Right Motor is run at power level 80
-			motor[leftMotor]  = 80*backward_forward;		    // Left Motor is run at power level 80
+			motor[rightMotor] = 50*backward_forward;		    // Right Motor is run at power level 80
+			motor[leftMotor]  = 50*backward_forward;		    // Left Motor is run at power level 80
 		}
-		else if(SensorValue[rightEncoder] > SensorValue[leftEncoder])	// If rightEncoder has counted more encoder counts
+		else if(abs(SensorValue[rightEncoder]) > abs(SensorValue[leftEncoder]))	// If rightEncoder has counted more encoder counts
 		{
 			// Turn slightly right
-			motor[rightMotor] = 60*backward_forward;		    // Right Motor is run at power level 60
-			motor[leftMotor]  = 80*backward_forward;		    // Left Motor is run at power level 80
+			motor[rightMotor] = 35*backward_forward;		    // Right Motor is run at power level 60
+			motor[leftMotor]  = 50*backward_forward;		    // Left Motor is run at power level 80
 		}
 		else	// Only runs if leftEncoder has counted more encoder counts
 		{
 			// Turn slightly left
-			motor[rightMotor] = 80*backward_forward;		    // Right Motor is run at power level 80
-			motor[leftMotor]  = 60*backward_forward;		    // Left Motor is run at power level 60
+			motor[rightMotor] = 50*backward_forward;		    // Right Motor is run at power level 80
+			motor[leftMotor]  = 35*backward_forward;		    // Left Motor is run at power level 60
 		}
 	}
 }
-
+void resetEncoders(){
+	SensorValue[leftEncoder] = 0;
+	SensorValue[rightEncoder] = 0;
+	}
 
 task main()
 {
 
-	//for (int i = 1; i<5;i++){
-		drive(BASEDIST,false);
-	//	stop(1000);
-	//	drive(BASEDIST*i,false);
-	//	stop(1000);
-//}
+	for (int i = 1; i<5;i++){
+		resetEncoders();
+		drive(BASEDIST*i,true);
+		stop(1000);
+		resetEncoders();
+		drive(BASEDIST*i,false);
+		stop(1000);
+	}
 
 }
 
@@ -60,7 +72,7 @@ task main()
 //distance_traveled_left = (sensorValue[leftEncoder]/ 360) * 31.92
 //distance_traveled_right = (sensorValue[rightEncoder]/ 360) * 31.92
 //distance_traveled_right needs to be equal to distance_traveled_left to
-//be sure that it travel straight.
+//be sure that it travels straight.
 
 //while distance_traveled_left =< dist:
 //	correct wheels
