@@ -50,7 +50,6 @@ void resetEncoders(){
 
 task main()
 {
-
 	for (int i = 1; i<5;i++){
 		resetEncoders();
 		drive(BASEDIST*i,true);
