@@ -19,7 +19,7 @@ void stop(int time){
 }
 
 
-const float BASEDIST = 486.12;
+const float BASEDIST = 486.12; // amount of degrees that motors need to spin to travel 0.5m
 void drive(int dist,bool bf){
 	int backward_forward = (bf) ? (1):(-1);
 	while(dist > abs(SensorValue[rightEncoder])){
