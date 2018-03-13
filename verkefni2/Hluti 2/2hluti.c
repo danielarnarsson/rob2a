@@ -19,7 +19,7 @@ void stop(int time){
 }
 
 
-const float BASEDIST = 300;
+const float BASEDIST = 486.12;
 void drive(int dist,bool bf){
 	int backward_forward = (bf) ? (1):(-1);
 	while(dist > abs(SensorValue[rightEncoder])){
@@ -65,6 +65,10 @@ task main()
 
 // diameter = 10.16
 // circumference = 10.16 * pi = 31.92 cm
+// 0.5/0.3192 = 1.5664
+// 1.5664 * 360 = 563.9 degrees
+// 563.9/360 * 31.92 = 50 cm
+// 50/58.5 * 563.9 = 486.12 degrees
 
 
 
