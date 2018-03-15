@@ -21,6 +21,8 @@ void stop(int time){
 
 const float BASEDIST = 486.12; // amount of degrees that wheel motors need to spin to travel 0.5m
 void drive(int dist,bool bf){
+	SensorValue[leftEncoder] = 0;
+	SensorValue[rightEncoder] = 0;
 	int backward_forward = (bf) ? (1):(-1);
 	while(dist > abs(SensorValue[rightEncoder])){
 		if(SensorValue[rightEncoder] == SensorValue[leftEncoder]) // If rightEncoder has counted the same amount as leftEncoder:
@@ -43,24 +45,46 @@ void drive(int dist,bool bf){
 		}
 	}
 }
+
 void resetEncoders(){
 	SensorValue[leftEncoder] = 0;
 	SensorValue[rightEncoder] = 0;
 	}
 
-left = false
-right = true
 
-void turn(int degrees, bool leftOrRight){
-	while(degrees > abs(SensorValue[rightEncoder]) {
-		if leftOrRight == True {
-			motor[rightMotor] = -60
-			motor[leftMotor]  = 60
+void turn(float degrees, bool leftOrRight) {
+	SensorValue[leftEncoder] = 0;
+	SensorValue[rightEncoder] = 0;
+	if (leftOrRight == False) { //after we have added a thing to correct how the robot turns, the if statement should go away but the degrees variable (degrees = degrees * 3.7) should stay.
+		degrees = degrees * 3.7;
+	}
+//	else if (leftOrRight == True) {
+//		degrees = degrees * 4;
+//	}
+	while (degrees > abs(SensorValue[rightEncoder]) && degrees > abs(SensorValue[leftEncoder])) {
+		if (leftOrRight == true) {
+			motor[rightMotor] = -50;
+			motor[leftMotor]  = 50;
+/*			if (abs(SensorValue[rightEncoder]) > abs(SensorValue[leftEncoder])) {
+				motor[rightMotor] = 0;
+				motor[leftMotor]  = 50;
 			}
-
-		else if leftOrRight == True {
-			motor[rightMotor] = 60
-			motor[leftMotor]  = -60
+			else if (abs(SensorValue[rightEncoder]) < abs(SensorValue[leftEncoder])) {
+				motor[rightMotor] = 50;
+				motor[leftMotor]  = 0;
+				}*/
+			}
+		else if (leftOrRight == false) {
+			motor[rightMotor] = 50;
+			motor[leftMotor]  = -50;
+/*			if (abs(SensorValue[rightEncoder]) < abs(SensorValue[leftEncoder])) {
+				motor[rightMotor] = 50;
+				motor[leftMotor]  = 0;
+			}
+			else if (abs(SensorValue[rightEncoder]) > abs(SensorValue[leftEncoder])) {
+				motor[rightMotor] = 0;
+				motor[leftMotor]  = 50;
+				}*/
 			}
 		}
 	}
@@ -68,13 +92,14 @@ void turn(int degrees, bool leftOrRight){
 
 task main()
 {
-	for (int i = 1; i<5;i++){
-		resetEncoders();
-		drive(BASEDIST*i,true);
-		stop(1000);
-		resetEncoders();
-		drive(BASEDIST*i,false);
-		stop(1000);
+	bool left = false;
+	bool right = true;
+	drive(BASEDIST, true);
+	turn(90, left);
+	drive(BASEDIST, true);
+	for (int i = 0; i < 2; i++) {
+		turn(90, right);
+		drive(BASEDIST, true);
 	}
 
 }
