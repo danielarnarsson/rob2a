@@ -55,36 +55,20 @@ void resetEncoders(){
 void turn(float degrees, bool leftOrRight) {
 	SensorValue[leftEncoder] = 0;
 	SensorValue[rightEncoder] = 0;
-	if (leftOrRight == False) { //after we have added a thing to correct how the robot turns, the if statement should go away but the degrees variable (degrees = degrees * 3.7) should stay.
-		degrees = degrees * 3.7;
+	if (leftOrRight == false) { //after we have added a thing to correct how the robot turns, the if statement should go away but the degrees variable (degrees = degrees * 3.7) should stay.
+		degrees = degrees * 3.9;
 	}
-//	else if (leftOrRight == True) {
-//		degrees = degrees * 4;
-//	}
+	else if (leftOrRight == true) {
+		degrees = degrees * 3.9;
+	}
 	while (degrees > abs(SensorValue[rightEncoder]) && degrees > abs(SensorValue[leftEncoder])) {
-		if (leftOrRight == true) {
-			motor[rightMotor] = -50;
-			motor[leftMotor]  = 50;
-/*			if (abs(SensorValue[rightEncoder]) > abs(SensorValue[leftEncoder])) {
-				motor[rightMotor] = 0;
-				motor[leftMotor]  = 50;
-			}
-			else if (abs(SensorValue[rightEncoder]) < abs(SensorValue[leftEncoder])) {
-				motor[rightMotor] = 50;
-				motor[leftMotor]  = 0;
-				}*/
-			}
-		else if (leftOrRight == false) {
+		if (leftOrRight == false) { //left
 			motor[rightMotor] = 50;
 			motor[leftMotor]  = -50;
-/*			if (abs(SensorValue[rightEncoder]) < abs(SensorValue[leftEncoder])) {
-				motor[rightMotor] = 50;
-				motor[leftMotor]  = 0;
 			}
-			else if (abs(SensorValue[rightEncoder]) > abs(SensorValue[leftEncoder])) {
-				motor[rightMotor] = 0;
-				motor[leftMotor]  = 50;
-				}*/
+		else if (leftOrRight == true) { //right
+			motor[rightMotor] = -50;
+			motor[leftMotor]  = 50;
 			}
 		}
 	}
@@ -119,9 +103,3 @@ task main()
 //distance_traveled_right = (sensorValue[rightEncoder]/ 360) * 31.92
 //distance_traveled_right needs to be equal to distance_traveled_left to
 //be sure that it travels straight.
-
-//while distance_traveled_left =< dist:
-//	correct wheels
-
-//while distance_traveled_right =< dist:
-//	correct wheels

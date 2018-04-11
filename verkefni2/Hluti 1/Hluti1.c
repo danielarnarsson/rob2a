@@ -39,7 +39,7 @@ void stop(int time){
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
 task main()
 {
-	wait1Msec(5000);
+	stop(10000);
 	for (int i = 1; i<5;i++){
 		drive(BASETIME*i,true);
 		stop(1000);
