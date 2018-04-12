@@ -55,12 +55,7 @@ void resetEncoders(){
 void turn(float degrees, bool leftOrRight) {
 	SensorValue[leftEncoder] = 0;
 	SensorValue[rightEncoder] = 0;
-	if (leftOrRight == false) { //after we have added a thing to correct how the robot turns, the if statement should go away but the degrees variable (degrees = degrees * 3.7) should stay.
-		degrees = degrees * 3.9;
-	}
-	else if (leftOrRight == true) {
-		degrees = degrees * 3.9;
-	}
+	degrees = degrees * 3.9;
 	while (degrees > abs(SensorValue[rightEncoder]) && degrees > abs(SensorValue[leftEncoder])) {
 		if (leftOrRight == false) { //left
 			motor[rightMotor] = 50;
@@ -96,10 +91,3 @@ task main()
 // 1.5664 * 360 = 563.9 degrees
 // 563.9/360 * 31.92 = 50 cm
 // 50/58.5 * 563.9 = 486.12 degrees
-
-
-
-//distance_traveled_left = (sensorValue[leftEncoder]/ 360) * 31.92
-//distance_traveled_right = (sensorValue[rightEncoder]/ 360) * 31.92
-//distance_traveled_right needs to be equal to distance_traveled_left to
-//be sure that it travels straight.
