@@ -1,6 +1,9 @@
-Video 1:
-https://youtu.be/B1U-TiPhsSw
+Hluti 1:
+ * Video 1:  
+   + <https://youtu.be/B1U-TiPhsSw>  
 
 
-Video 2:
-https://youtu.be/yiEnIzcy0MI
+ * Video 2:  
+   + <https://youtu.be/yiEnIzcy0MI>  
+
+Hluti 2:

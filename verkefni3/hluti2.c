@@ -12,6 +12,14 @@
 #pragma config(Motor,  port6,           clawMotor,     tmotorVex269, openLoop)
 #pragma config(Motor,  port7,           armMotor,      tmotorVex269, openLoop)
 
+
+task emergencyStop() {
+while (vexRT[Btn7U] == false) {
+	wait1Msec(20);
+	}
+	StopAllTasks();
+}
+
 void stop(int time){
 	motor[rightMotor] = 0;		  // Motor on port2 is run at full (127) power forward
 	motor[leftMotor]  = 0;		  // Motor on port3 is run at full (127) power forward
@@ -46,6 +54,7 @@ void drive(int dist,bool bf){
 	}
 }
 
+
 void resetEncoders(){
 	SensorValue[leftEncoder] = 0;
 	SensorValue[rightEncoder] = 0;
@@ -71,18 +80,20 @@ void turn(float degrees, bool leftOrRight) {
 
 task main()
 {
-	bool left = false;
-	bool right = true;
-	drive(BASEDIST, true);
-	turn(90, left);
-	drive(BASEDIST, true);
-	for (int i = 0; i < 2; i++) {
-		turn(90, right);
+	StartTask (emergencyStop);
+	while (vexRT[Btn7U] == false)
+	{
+		bool left = false;
+		bool right = true;
 		drive(BASEDIST, true);
+		turn(90, left);
+		drive(BASEDIST, true);
+		for (int i = 0; i < 2; i++) {
+			turn(90, right);
+			drive(BASEDIST, true);
+		}
 	}
 }
-
-
 
 // diameter = 10.16
 // circumference = 10.16 * pi = 31.92 cm
