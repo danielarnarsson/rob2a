@@ -22,7 +22,7 @@
 |*    Motor Port 2        rightMotor          VEX 3-wire module     Right side motor                  *|
 |*    Motor Port 3        leftMotor           VEX 3-wire module     Left side motor                   *|
 \*-----------------------------------------------------------------------------------------------4246-*/
-const int BASETIME = 1300;
+const int BASETIME = 850;
 
 void drive(int time,bool fb){
 	int dir = (fb) ? (-1):(1);
@@ -39,12 +39,12 @@ void stop(int time){
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
 task main()
 {
-	stop(10000);
+	stop(30000);
 	for (int i = 1; i<5;i++){
 		drive(BASETIME*i,true);
-		stop(1000);
+		stop(3500);
 		drive(BASETIME*i,false);
-		stop(1000);
+		stop(3500);
 	}
 
 }												        // Program ends, and the robot stops
