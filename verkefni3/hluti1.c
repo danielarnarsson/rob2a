@@ -13,15 +13,15 @@
 |*  The joystick buttons are used to open and close the claw.																					*|
 \*----------------------------------------------------------------------------------------------------*/
 int power = 127;
-bool run = true;
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
 task main ()
 {
 	while(1 == 1)
 	{
-		motor[leftMotor]  = (vexRT[Ch2] + vexRT[Ch1])/2;  // (y + x)/2
-		motor[rightMotor] = (vexRT[Ch2] - vexRT[Ch1])/2;  // (y - x)/2
-
+		if ((abs(vexRT[Ch2]) + abs(vexRT[Ch1])) > 0) {
+			motor[leftMotor]  = (vexRT[Ch2] + vexRT[Ch1])/2;  // (y + x)/2
+			motor[rightMotor] = (vexRT[Ch2] - vexRT[Ch1])/2;  // (y - x)/2
+		}
 // Raise, lower or do not move arm
 		if(vexRT[Btn5U] == 1)       	//If button 5U is pressed...
 		{
