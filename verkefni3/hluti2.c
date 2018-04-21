@@ -12,71 +12,85 @@
 #pragma config(Motor,  port6,           clawMotor,     tmotorVex269, openLoop)
 #pragma config(Motor,  port7,           armMotor,      tmotorVex269, openLoop)
 
-
-task emergencyStop() {
-while (vexRT[Btn7U] == false) {
-	wait1Msec(20);
-	}
-	StopAllTasks();
+task emergencyStop() 
+{
+	while(true)
+   {
+      if(SensorValue(vexRT[Btn7U] == 1)
+      {
+         StopAllTasks(); 
+      }
+      wait1Msec(20);
+   }
 }
 
 
-void stop(int time){
-	motor[rightMotor] = 0;		  // Motor on port2 is run at full (127) power forward
-	motor[leftMotor]  = 0;		  // Motor on port3 is run at full (127) power forward
+void stop(int time)
+{
+	motor[rightMotor] = 0;
+	motor[leftMotor]  = 0;
 	wait1Msec(time);
 }
 
 
 const float BASEDIST = 486.12; // amount of degrees that wheel motors need to spin to travel 0.5m
-void drive(int dist,bool bf){
+void drive(int dist,bool bf)
+{
 	SensorValue[leftEncoder] = 0;
 	SensorValue[rightEncoder] = 0;
 	int backward_forward = (bf) ? (1):(-1);
-	while(dist > abs(SensorValue[rightEncoder])){
+	while(dist > abs(SensorValue[rightEncoder]))
+	{
 		if(SensorValue[rightEncoder] == SensorValue[leftEncoder]) // If rightEncoder has counted the same amount as leftEncoder:
 		{
 			// Move Forward
-			motor[rightMotor] = 50*backward_forward;		    // Right Motor is run at power level 80
-			motor[leftMotor]  = 50*backward_forward;		    // Left Motor is run at power level 80
+			motor[rightMotor] = 50*backward_forward;
+			motor[leftMotor]  = 50*backward_forward;
 		}
 		else if(abs(SensorValue[rightEncoder]) > abs(SensorValue[leftEncoder]))	// If rightEncoder has counted more encoder counts
 		{
 			// Turn slightly right
-			motor[rightMotor] = 35*backward_forward;		    // Right Motor is run at power level 60
-			motor[leftMotor]  = 50*backward_forward;		    // Left Motor is run at power level 80
+			motor[rightMotor] = 35*backward_forward;
+			motor[leftMotor]  = 50*backward_forward
 		}
 		else	// Only runs if leftEncoder has counted more encoder counts
 		{
 			// Turn slightly left
-			motor[rightMotor] = 50*backward_forward;		    // Right Motor is run at power level 80
-			motor[leftMotor]  = 35*backward_forward;		    // Left Motor is run at power level 60
+			motor[rightMotor] = 50*backward_forward;
+			motor[leftMotor]  = 35*backward_forward;
 		}
 	}
 }
 
 
-void resetEncoders(){
+void resetEncoders()
+{
 	SensorValue[leftEncoder] = 0;
 	SensorValue[rightEncoder] = 0;
-	}
+}
 
 
-void turn(float degrees, bool leftOrRight) {
+void turn(float degrees, bool leftOrRight) 
+{
 	SensorValue[leftEncoder] = 0;
 	SensorValue[rightEncoder] = 0;
 	degrees = degrees * 3.9;
-	while (degrees > abs(SensorValue[rightEncoder]) && degrees > abs(SensorValue[leftEncoder])) {
-		if (leftOrRight == false) { //left
+	while (degrees > abs(SensorValue[rightEncoder]) && degrees > abs(SensorValue[leftEncoder])) 
+	{
+		if (leftOrRight == false) 
+		{ 
+			//turn left
 			motor[rightMotor] = 50;
 			motor[leftMotor]  = -50;
-			}
-		else if (leftOrRight == true) { //right
+		}
+		else if (leftOrRight == true)
+		{
+			//turn right
 			motor[rightMotor] = -50;
 			motor[leftMotor]  = 50;
-			}
 		}
 	}
+}
 
 
 task main()
@@ -87,10 +101,11 @@ task main()
 		drive(BASEDIST, true);
 		turn(90, left);
 		drive(BASEDIST, true);
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 2; i++)
+		{
 			turn(90, right);
 			drive(BASEDIST, true);
-	}
+		}
 }
 
 // diameter = 10.16
