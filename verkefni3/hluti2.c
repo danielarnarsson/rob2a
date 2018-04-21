@@ -20,6 +20,7 @@ while (vexRT[Btn7U] == false) {
 	StopAllTasks();
 }
 
+
 void stop(int time){
 	motor[rightMotor] = 0;		  // Motor on port2 is run at full (127) power forward
 	motor[leftMotor]  = 0;		  // Motor on port3 is run at full (127) power forward
@@ -81,8 +82,6 @@ void turn(float degrees, bool leftOrRight) {
 task main()
 {
 	StartTask (emergencyStop);
-	while (vexRT[Btn7U] == false)
-	{
 		bool left = false;
 		bool right = true;
 		drive(BASEDIST, true);
@@ -91,7 +90,6 @@ task main()
 		for (int i = 0; i < 2; i++) {
 			turn(90, right);
 			drive(BASEDIST, true);
-		}
 	}
 }
 
