@@ -15,17 +15,16 @@
 task emergencyStop()
 {
 	while(true)
-   {
-      if(SensorValue(vexRT[Btn7U]) == 1)
-      {
-         StopAllTasks();
-      }
-      wait1Msec(20);
-   }
+	{
+		if(vexRT[Btn7U]==1)
+		{
+			StopAllTasks();
+		}
+	}
 }
 
 
-void stop(int time)
+void stopmotors(int time)
 {
 	motor[rightMotor] = 0;
 	motor[leftMotor]  = 0;
@@ -38,7 +37,7 @@ void drive(int dist,bool bf)
 {
 	SensorValue[leftEncoder] = 0;
 	SensorValue[rightEncoder] = 0;
-	int backward_forward = (bf) ? (1):(-1);
+int backward_forward = (bf) ? (1):(-1);
 	while(dist > abs(SensorValue[rightEncoder]))
 	{
 		if(SensorValue[rightEncoder] == SensorValue[leftEncoder]) // If rightEncoder has counted the same amount as leftEncoder:
@@ -95,17 +94,17 @@ void turn(float degrees, bool leftOrRight)
 
 task main()
 {
-	StartTask (emergencyStop);
-		bool left = false;
-		bool right = true;
-		drive(BASEDIST, true);
-		turn(90, left);
-		drive(BASEDIST, true);
-		for (int i = 0; i < 2; i++)
-		{
-			turn(90, right);
+	StartTask(emergencyStop);
+	bool left = false;
+	bool right = true;
 			drive(BASEDIST, true);
-		}
+	turn(90, left);
+	drive(BASEDIST, true);
+	for (int i = 0; i < 2; i++)
+	{
+		turn(90, right);
+		drive(BASEDIST, true);
+	}
 }
 
 // diameter = 10.16
