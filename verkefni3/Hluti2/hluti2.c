@@ -12,13 +12,13 @@
 #pragma config(Motor,  port6,           clawMotor,     tmotorVex269, openLoop)
 #pragma config(Motor,  port7,           armMotor,      tmotorVex269, openLoop)
 
-task emergencyStop() 
+task emergencyStop()
 {
 	while(true)
    {
-      if(SensorValue(vexRT[Btn7U] == 1)
+      if(SensorValue(vexRT[Btn7U]) == 1)
       {
-         StopAllTasks(); 
+         StopAllTasks();
       }
       wait1Msec(20);
    }
@@ -51,7 +51,7 @@ void drive(int dist,bool bf)
 		{
 			// Turn slightly right
 			motor[rightMotor] = 35*backward_forward;
-			motor[leftMotor]  = 50*backward_forward
+			motor[leftMotor]  = 50*backward_forward;
 		}
 		else	// Only runs if leftEncoder has counted more encoder counts
 		{
@@ -70,15 +70,15 @@ void resetEncoders()
 }
 
 
-void turn(float degrees, bool leftOrRight) 
+void turn(float degrees, bool leftOrRight)
 {
 	SensorValue[leftEncoder] = 0;
 	SensorValue[rightEncoder] = 0;
 	degrees = degrees * 3.9;
-	while (degrees > abs(SensorValue[rightEncoder]) && degrees > abs(SensorValue[leftEncoder])) 
+	while (degrees > abs(SensorValue[rightEncoder]) && degrees > abs(SensorValue[leftEncoder]))
 	{
-		if (leftOrRight == false) 
-		{ 
+		if (leftOrRight == false)
+		{
 			//turn left
 			motor[rightMotor] = 50;
 			motor[leftMotor]  = -50;
