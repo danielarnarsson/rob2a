@@ -1,17 +1,16 @@
-#include "../functions/functions.c"
-
 task verkefni2hluti1() //correct
 {
 	const int BASETIME = 850;
-	stop(30000);
-	for (int i = 1; i<5;i++){
+	for (int i = 1; i<5;i++)
+	{
 		drive1(BASETIME*i,true);
-		stop(3500);
+		stop(1500);
 		drive1(BASETIME*i,false);
-		stop(3500);
+		stop(1500);
 	}
 
 }
+
 task verkefni2hluti2 { //correct
 	const float BASEDIST = 486.12; // amount of degrees that wheel motors need to spin to travel 0.5m
 	for (int i = 1; i<5;i++){
@@ -38,7 +37,7 @@ task verkefni2hluti3() //correct
 	}
 }
 
-task verkefni3hluti1 () //correct
+task verkefni3hluti1() //correct
 {
 	int power = 127;
 	while(1 == 1)

@@ -1,17 +1,3 @@
-#pragma config(Sensor, in1,    rightLineFollower, sensorLineFollower)
-#pragma config(Sensor, in2,    centreLineFollower, sensorLineFollower)
-#pragma config(Sensor, in3,    leftLineFollower, sensorLineFollower)
-#pragma config(Sensor, in4,    lightSensor,    sensorReflection)
-#pragma config(Sensor, in5,    Potentiometer,  sensorPotentiometer)
-#pragma config(Sensor, dgtl1,  sonarSensor,    sensorSONAR_cm)
-#pragma config(Sensor, dgtl4,  touchSensor,    sensorTouch)
-#pragma config(Sensor, dgtl8,  leftEncoder,    sensorQuadEncoder)
-#pragma config(Sensor, dgtl10, rightEncoder,   sensorQuadEncoder)
-#pragma config(Motor,  port2,           rightMotor,    tmotorVex393, openLoop)
-#pragma config(Motor,  port3,           leftMotor,     tmotorVex393, openLoop, reversed)
-#pragma config(Motor,  port6,           clawMotor,     tmotorVex269, openLoop)
-#pragma config(Motor,  port7,           armMotor,      tmotorVex269, openLoop)
-
 
 void stop(int time){
 	motor[rightMotor] = 0;		  // Motor on port2 is run at full (127) power forward
